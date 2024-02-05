@@ -1,4 +1,6 @@
 #!/bin/bash
+# COCO 2017 dataset http://cocodataset.org
+# Download command: bash ./scripts/get_coco.sh
 
 # Download/unzip labels
 d='./' # unzip directory
@@ -18,19 +20,3 @@ for f in $f1 $f2 $f3; do
   curl -L $url$f -o $f && unzip -q $f -d $d && rm $f & # download, unzip, remove in background
 done
 wait # finish background tasks
-
-
-dataset="coco"
-iters=200
-
-if [ $dataset = "voc" ]
-then
-    data_dir="/data/voc2012/VOCdevkit/VOC2012/"
-elif [ $dataset = "coco" ]
-then
-    data_dir="/data/coco2017/"
-fi
-
-
-python train.py --use-cuda --iters ${iters} --dataset ${dataset} --data-dir ${data_dir}
-
